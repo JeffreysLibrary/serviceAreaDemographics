@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+
+#total2Button {
+	visibility:hidden;
+}
+
+#visualize {
+	visibility: hidden;
+}
+
+td {
+	text-align: center;
+}
+
+.buttonClass {
+	background-color:green;
+	color:white;
+}
+
+.buttonClass:hover {
+	background-color:white;
+	color:green;
+}
+
+#map {
+visibility: hidden;
+top:0px;
+height:50%;
+width:50%;
+background-color:black;
+color:white;
+position:absolute;
+padding:5px;
+text-align:center;
+border:2px solid white;
+}
+
+</style>
+
+	<title>VR Numbers</title>
+</head>
+<body>
+
+<table>
+
+<tr>
+<td>Demographic Type</td>
+<td>Clients</td>
+<td>Disabled Population</td>
+<td>Percentage of </br>Minority Population</td>
+<td>Percentage of </br>Clientel Served</td>
+</tr>
+
+<tr>
+<td>African American</td>
+<td><input type="text" id="client1"/></td>
+<td id="disabledPop1">34721</td>
+<td id="disabledPercent1"></td>
+<td id="clientPercent1"></td>
+</tr>
+
+<tr>
+<td>Latino</td>
+<td><input type="text" id="client2"/></td>
+<td id="disabledPop2">42190</td>
+<td id="disabledPercent2"></td>
+<td id="clientPercent2"></td>
+</tr>
+
+<tr>
+<td>Native American</td>
+<td><input type="text" id="client3"/></td>
+<td id="disabledPop3">734</td>
+<td id="disabledPercent3"></td>
+<td id="clientPercent3"></td>
+</tr>
+
+<tr>
+<td>Asian</td>
+<td><input type="text" id="client4"/></td>
+<td id="disabledPop4">10582</td>
+<td id="disabledPercent4"></td>
+<td id="clientPercent4"></td>
+</tr>
+
+<tr>
+<td>Totals:</td>
+<td id="clientTotal"></td>
+<td id="totalDisabledPop"></td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><input type="button" value="Input Client Data" id="totalButton" class="buttonClass" /></td>
+<td><input type="button" value="Compare Percentages" id="total2Button" class="buttonClass" /></td>
+<td><input type="button" value="Visualize Discrepencies" id="visualize" class="buttonClass"/></td>
+</tr>
+
+</table>
+
+<div id="map">
+
+<table>
+
+<tr>
+<td>Discrepencies</td>
+<td></td>
+<td></td>
+<td id="cell1"></td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td id="cell2"></td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td id="cell3"></td>
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td id="cell4"></td>
+<td></td>
+</tr>
+
+</table>
+
+<p>This shows the demographic distribution of VR services. The figures under the demographic type show
+positives for areas where client services are higher than the proportion of disabled population. Negative figures reveal where client services are lower than the proportion of disabled population.</p>
+
+<input type="button" id="closer" value="Close" />
+
+</div>
+
+<script>
+
+var button1 = document.getElementById("totalButton");
+var button2 = document.getElementById("total2Button");
+var button3 = document.getElementById("visualize");
+var closer = document.getElementById("closer");
+
+button1.addEventListener("click" , totalButtonGo);
+button2.addEventListener("click" , totalButton2Go);
+visualize.addEventListener("click" , visualizeGo);
+closer.addEventListener("click" , closerGo);
+
+window.onload = function start() {
+	var dp1 = document.getElementById("disabledPop1").innerHTML;
+	var dp2 = document.getElementById("disabledPop2").innerHTML;
+	var dp3 = document.getElementById("disabledPop3").innerHTML;
+	var dp4 = document.getElementById("disabledPop4").innerHTML;
+	
+	document.getElementById("totalDisabledPop").innerHTML = +dp1 + +dp2 + +dp3 + +dp4;
+}
+
+function totalButtonGo() {
+	var c1 = document.getElementById("client1").value;
+	var c2 = document.getElementById("client2").value;
+	var c3 = document.getElementById("client3").value;
+	var c4 = document.getElementById("client4").value;
+	var dpercent1 = document.getElementById("disabledPercent1").innerHTML;
+	var dpercent2 = document.getElementById("disabledPercent2").innerHTML;
+	var dpercent3 = document.getElementById("disabledPercent3").innerHTML;
+	var dpercent4 = document.getElementById("disabledPercent4").innerHTML;
+	var totalD = document.getElementById("totalDisabledPop").innerHTML;
+	var dp1 = document.getElementById("disabledPop1").innerHTML;
+	var dp2 = document.getElementById("disabledPop2").innerHTML;
+	var dp3 = document.getElementById("disabledPop3").innerHTML;
+	var dp4 = document.getElementById("disabledPop4").innerHTML;
+	
+	document.getElementById("clientTotal").innerHTML = +c1 + +c2 + +c3 + +c4;
+	document.getElementById("disabledPercent1").innerHTML = Math.round((+dp1/+totalD)*100);
+	document.getElementById("disabledPercent2").innerHTML = Math.round((+dp2/+totalD)*100);
+	document.getElementById("disabledPercent3").innerHTML = Math.round((+dp3/+totalD)*100);
+	document.getElementById("disabledPercent4").innerHTML = Math.round((+dp4/+totalD)*100);
+
+	document.getElementById("totalButton").style.visibility = "hidden";
+	document.getElementById("total2Button").style.visibility = "visible";
+}
+
+function totalButton2Go() {
+	var c1 = document.getElementById("client1").value;
+	var c2 = document.getElementById("client2").value;
+	var c3 = document.getElementById("client3").value;
+	var c4 = document.getElementById("client4").value;
+	var dpercent1 = document.getElementById("disabledPercent1").innerHTML;
+	var dpercent2 = document.getElementById("disabledPercent2").innerHTML;
+	var dpercent3 = document.getElementById("disabledPercent3").innerHTML;
+	var dpercent4 = document.getElementById("disabledPercent4").innerHTML;
+	var totalC = document.getElementById("clientTotal").innerHTML;
+	var dp1 = document.getElementById("disabledPop1").innerHTML;
+	var dp2 = document.getElementById("disabledPop2").innerHTML;
+	var dp3 = document.getElementById("disabledPop3").innerHTML;
+	var dp4 = document.getElementById("disabledPop4").innerHTML;
+	var cp1 = document.getElementById("clientPercent1").innerHTML;
+	var cp2 = document.getElementById("clientPercent2").innerHTML;
+	var cp3 = document.getElementById("clientPercent3").innerHTML;
+	var cp4 = document.getElementById("clientPercent4").innerHTML;
+
+	
+	
+	document.getElementById("clientPercent1").innerHTML = Math.round((+c1/+totalC)*100);
+	document.getElementById("clientPercent2").innerHTML = Math.round((+c2/+totalC)*100);
+	document.getElementById("clientPercent3").innerHTML = Math.round((+c3/+totalC)*100);
+	document.getElementById("clientPercent4").innerHTML = Math.round((+c4/+totalC)*100);
+	
+	if (+cp1 > +dpercent1) {
+	document.getElementById("clientPercent1").style.background="red";
+	document.getElementById("clientPercent1").style.color="white";	
+	}
+	
+
+	document.getElementById("total2Button").style.visibility = "hidden";
+	document.getElementById("visualize").style.visibility = "visible";
+}
+
+function visualizeGo() {
+	var map = document.getElementById("map");
+	var clientNum1 = document.getElementById("clientPercent1").innerHTML;
+	var clientNum2 = document.getElementById("clientPercent2").innerHTML;
+	var clientNum3 = document.getElementById("clientPercent3").innerHTML;
+	var clientNum4 = document.getElementById("clientPercent4").innerHTML;
+	var disabNum1 = document.getElementById("disabledPercent1").innerHTML;
+	var disabNum2 = document.getElementById("disabledPercent2").innerHTML;
+	var disabNum3 = document.getElementById("disabledPercent3").innerHTML;
+	var disabNum4 = document.getElementById("disabledPercent4").innerHTML;
+
+	document.getElementById("cell1").innerHTML = "African American <br>" + (+clientNum1 - +disabNum1);
+	document.getElementById("cell2").innerHTML = "Latino <br>" + (+clientNum2 - +disabNum2);
+	document.getElementById("cell3").innerHTML = "Native American <br>" + (+clientNum3 - +disabNum3);
+ 	document.getElementById("cell4").innerHTML = "Asian <br>" + (+clientNum4 - +disabNum4);
+		
+	map.style.visibility = "visible";
+}
+
+function closerGo() {
+	document.getElementById("map").style.visibility = "hidden";
+}
+
+</script>
+
+</body>
+</html>

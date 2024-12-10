@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	
+	<style>
+	
+	.buttonClass {
+		background-color:green;
+		color:white;
+	}
+	
+	.buttonClass:hover {
+		background-color:white;
+		color:green;
+	}
+	
+	#imageMap {
+		background: url("mapImage.png");
+		height: 200px;
+		width: 50%;
+	}
+	
+	</style>
+	
+	<title>VR Home</title>
+</head>
+
+<body>
+
+<h3>Pennsburgh, Pittsylvania</h3>
+
+<div id="imageMap"></div>
+
+<h3>Select a Metric</h3>
+
+
+<table>
+<tr>
+<td><input type="button" value="Geography" id="zipPage" class="buttonClass"/></td>
+<td><input type="button" value="Demographics" id="demoPage" class="buttonClass"/></td>
+</tr>
+</table>
+
+<script>
+
+var zip = document.getElementById("zipPage");
+var demo = document.getElementById("demoPage");
+
+zip.addEventListener("click" , zipGo);
+demo.addEventListener("click" , demoGo);
+
+function zipGo() {
+	window.open("vrDatabaseZip.html");
+}
+
+function demoGo() {
+	window.open("vrDatabaseDemo.html");
+}
+
+</script>
+
+</body>
+
+</html>
